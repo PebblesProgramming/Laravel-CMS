@@ -3,11 +3,11 @@
 namespace App\Services;
 
 use Kreait\Firebase\Factory;
-use Kreait\Firebase\Contract\Firestore;
+use Google\Cloud\Firestore\FirestoreClient;
 
 class FirebaseService
 {
-    protected Firestore $db;
+    protected FirestoreClient $db;
 
 
     public function __construct()
@@ -18,12 +18,12 @@ class FirebaseService
             //Change This to firebase realtime database path
             // ->withDatabaseUri('https://laravelfirebasedemo-417d7-default-rtdb.firebaseio.com');
 
-            $this->db = $factory->createFirestore();
+            $this->db = $factory->createFirestore()->database();
         // $this->database = $factory->createDatabase();
         // $this->messaging = $factory->createMessaging();
     }
 
-    public function getDatabase(): Firestore
+    public function getDatabase(): FirestoreClient
     {
         return $this->db;
     }

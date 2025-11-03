@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\FirebaseService;
-use Kreait\Firebase\Contract\Firestore;
 
 class FirebaseController extends Controller
 {
@@ -13,7 +11,7 @@ class FirebaseController extends Controller
     public function __construct(FirebaseService $firebase)
     {
         // haal de Firestore-database op uit de service
-        $this->firestore = $firebase->getDatabase()->database();
+        $this->firestore = $firebase->getDatabase();
     }
 
     public function test()
@@ -24,7 +22,10 @@ class FirebaseController extends Controller
         $users = [];
         foreach($documents as $doc){
             if($doc->exists()){
-                $users = array_merge(['id' => $doc->id()], $doc->data());
+                $users [] = [           // Formatting convenience
+                    'id'=> $doc->id(),  // Hier pak ik de firestore-document-ID
+                    ...$doc->data()     // de daadwerkelijke data van het document
+                ];
             }
         }
         return response()->json($users);
