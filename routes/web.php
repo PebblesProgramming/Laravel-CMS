@@ -11,4 +11,4 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::get('/test', [FirebaseController::class, 'test']);
+Route::get('/test',  [FirebaseController::class, 'test']);

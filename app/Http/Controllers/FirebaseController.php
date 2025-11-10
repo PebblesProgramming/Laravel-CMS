@@ -30,12 +30,6 @@ class FirebaseController extends Controller
         }
         return response()->json($users);
     }
-
-    // voeg een nieuwe doc toe
-    // public function store(Request $request)
-    // {
-
-    // }
 }
 
 
